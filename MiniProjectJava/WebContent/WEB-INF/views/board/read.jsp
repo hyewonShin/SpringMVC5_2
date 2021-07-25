@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:url var='root' value='/'/>
+<c:set var='root' value="${pageContext.request.contextPath }/"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -25,36 +24,40 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<form action="${root }user/modify" method="get">
 					<div class="form-group">
-						<label for="user_name">이름</label>
-						<input type="text" id="user_name" name="user_name" class="form-control" value="홍길동" disabled="disabled"/>
+						<label for="board_writer_name">작성자</label>
+						<input type="text" id="board_writer_name" name="board_writer_name" class="form-control" value="홍길동" disabled="disabled"/>
 					</div>
 					<div class="form-group">
-						<label for="user_id">아이디</label>
-						<input type="text" id="user_id" name="user_id" class="form-control" value="abc" disabled="disabled"/>
+						<label for="board_date">작성날짜</label>
+						<input type="text" id="board_date" name="board_date" class="form-control" value="2018-7-20" disabled="disabled"/>
 					</div>
 					<div class="form-group">
-						<label for="user_pw">비밀번호</label>
-						<input type="password" id="user_pw" name="user_pw" class="form-control" value="1234"/>
+						<label for="board_subject">제목</label>
+						<input type="text" id="board_subject" name="board_subject" class="form-control" value="제목입니다" disabled="disabled"/>
 					</div>
 					<div class="form-group">
-						<label for="user_pw2">비밀번호 확인</label>
-						<input type="password" id="user_pw2" name="user_pw2" class="form-control" value="1234"/>
+						<label for="board_content">내용</label>
+						<textarea id="board_content" name="board_content" class="form-control" rows="10" style="resize:none" disabled="disabled">본문입니다</textarea>
+					</div>
+					<div class="form-group">
+						<label for="board_file">첨부 이미지</label>
+						<img src="${root }image/logo.png" width="100%"/>						
 					</div>
 					<div class="form-group">
 						<div class="text-right">
-							<button type="submit" class="btn btn-primary">정보수정</button>
+							<a href="${root }board/main" class="btn btn-primary">목록보기</a>
+							<a href="${root }board/modify" class="btn btn-info">수정하기</a>
+							<a href="${root }board/delete" class="btn btn-danger">삭제하기</a>
 						</div>
 					</div>
-					
-					</form>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-3"></div>
 	</div>
 </div>
+
 
 <c:import url="/WEB-INF/views/include/bottom_info.jsp"/>
 

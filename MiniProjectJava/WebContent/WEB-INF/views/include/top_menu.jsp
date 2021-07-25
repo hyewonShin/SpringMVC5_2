@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- context path를 포함함 절대경로를 칮아준다. -->
-<c:url var="root" value="/"/>
+<c:set var='root' value="${pageContext.request.contextPath }/"/>
+
 <!-- 상단 메뉴 부분 -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top shadow-lg">
 	<a class="navbar-brand" href="${root }main">SoftCampus</a>
