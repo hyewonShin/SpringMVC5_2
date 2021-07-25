@@ -25,7 +25,28 @@
 	<!-- 정적파일(이미지, 사운드, 동영상, JS, CSS 등등) 경로 셋팅 -->
 	<resources mapping="/**" location="/resources/"/>
 	
-			 
+	<!-- properties 파일의 내용을 사용할수 있도록 Bean을 정의한다. -->
+	<beans:bean class='org.springframework.beans.factory.config.PropertyPlaceholderConfigurer'>
+		<beans:property name="location">
+			<beans:value>/WEB-INF/properties/db.properties</beans:value>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean class='org.apache.commons.dbcp2.BasicDataSource' id='basic_data_source'>
+		<beans:property name="driverClassName" value="${db.classname}"/>
+		<beans:property name="url" value="${db.url}"/>
+		<beans:property name='username' value="${db.username}"/>
+		<beans:property name="password" value="${db.password}"/>
+	</beans:bean>
+	
+	<beans:bean class='org.mybatis.spring.SqlSessionFactoryBean' id='sqlSession'>
+		<beans:property name="dataSource" ref='basic_data_source'/>
+		<beans:property name="mapperLocations" value='/WEB-INF/mapper/*.xml'/>
+	</beans:bean>
+	
+	<beans:bean class='org.mybatis.spring.SqlSessionTemplate' id='sqlSessionTemplate'>
+		<beans:constructor-arg index='0' ref='sqlSession'/>
+	</beans:bean>
 </beans:beans>
 
 
