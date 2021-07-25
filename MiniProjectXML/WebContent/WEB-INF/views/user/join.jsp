@@ -24,7 +24,7 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<form action="login.html" method="post">
+					<form action="${root }user/login" method="get">
 						<div class="form-group">
 							<label for="user_name">이름</label>
 							<input type="text" id="user_name" name="user_name" class="form-control"/>
