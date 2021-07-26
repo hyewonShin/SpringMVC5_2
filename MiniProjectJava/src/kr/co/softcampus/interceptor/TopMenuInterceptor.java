@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import kr.co.softcampus.beans.BoardInfoBean;
@@ -38,6 +37,6 @@ public class TopMenuInterceptor implements HandlerInterceptor{
 		//controller로 연결됌 
 
 		
-		return true;
+		return true;   //true로 해야 계속 연결됌.
 	}
 }

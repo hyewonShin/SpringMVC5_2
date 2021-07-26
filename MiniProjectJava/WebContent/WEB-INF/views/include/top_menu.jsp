@@ -13,12 +13,29 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navMenu">
 		<ul class="navbar-nav">
+		
 			<c:forEach var="obj" items="${topMenuList }">
 			<li class="nav-item">
 				<a href="${root }board/main?board_info_idx=${obj.board_info_idx}" class="nav-link">${obj.board_info_name }</a>
 			</li> 
 			</c:forEach>
+			
+			<!-- 위에서 데이터베이스에서 게시판 이름 가져오도록 설정했기 때문에 수정시 아래와같이 수동으로 하나씩 할 필요가 없다.   -->
+			<%-- <li class="nav-item">
+				<a href="${root }board/main" class="nav-link">자유게시판</a>
+			</li>
+			<li class="nav-item">
+				<a href="${root }board/main" class="nav-link">유머게시판</a>
+			</li>
+			<li class="nav-item">
+				<a href="${root }board/main" class="nav-link">정치게시판</a>
+			</li>
+			<li class="nav-item">
+				<a href="${root }board/main" class="nav-link">스포츠게시판</a>
+			</li> --%>
+		
 		</ul>
+		
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
 				<a href="${root }user/login" class="nav-link">로그인</a>
