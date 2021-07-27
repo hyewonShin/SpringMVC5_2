@@ -23,6 +23,14 @@ public class UserBean {
 	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_pw2;
 	
+	//중복검사를 했는지 확인하는 객체(join.jsp에서 hidden으로 사용)
+	private boolean userIdExist;
+	
+	//객체가 처음 생성될 떄는 중복검사가 안됐을때니 false를 기본값으로 해놓는다.
+	public UserBean() {
+		this.userIdExist = false;
+	}
+	
 	public int getUser_idx() {
 		return user_idx;
 	}
@@ -53,6 +61,16 @@ public class UserBean {
 	public void setUser_pw2(String user_pw2) {
 		this.user_pw2 = user_pw2;
 	}
+	
+	//boolean 타입은 set메서드에서 앞에 is를 붙여서 생성된다.
+	public boolean isUserIdExist() {
+		return userIdExist;
+	}
+
+	public void setUserIdExist(boolean userIdExist) {
+		this.userIdExist = userIdExist;
+	}
+	
 	
 	
 }

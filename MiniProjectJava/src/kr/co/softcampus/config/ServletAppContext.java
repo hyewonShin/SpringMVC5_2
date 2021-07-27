@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import kr.co.softcampus.interceptor.TopMenuInterceptor;
 import kr.co.softcampus.mapper.BoardMapper;
 import kr.co.softcampus.mapper.TopMenuMapper;
+import kr.co.softcampus.mapper.UserMapper;
 import kr.co.softcampus.service.TopMenuService;
 
 // Spring MVC 프로젝트에 관련된 설정을 하는 클래스
@@ -35,22 +36,23 @@ import kr.co.softcampus.service.TopMenuService;
 
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
-	
+
 	@Value("${db.classname}")
 	private String db_classname;
-	
+
 	@Value("${db.url}")
 	private String db_url;
-	
+
 	@Value("${db.username}")
 	private String db_username;
-	
+
 	@Value("${db.password}")
 	private String db_password;
-	
+
+	//Interceptor에서는 빈 자동주입이 안되서 Servlet에서 파라미터로 넘겨준다. 
 	@Autowired
 	private TopMenuService topMenuService;
-	
+
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -58,7 +60,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		WebMvcConfigurer.super.configureViewResolvers(registry);
 		registry.jsp("/WEB-INF/views/", ".jsp");
 	}
-	
+
 	// 정적 파일의 경로를 매핑한다.
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -66,8 +68,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/**").addResourceLocations("/resources/");
 	}
-	
-	
+
+
 	// 데이터베이스 접속 정보를 관리하는 Bean
 	@Bean
 	public BasicDataSource dataSource() {
@@ -79,7 +81,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 
 		return source; 
 	}
-	
+
 	// 쿼리문과 접속 정보를 관리하는 객체
 	@Bean
 	public SqlSessionFactory factory(BasicDataSource source) throws Exception{
@@ -88,7 +90,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		SqlSessionFactory factory = factoryBean.getObject();
 		return factory;
 	}
-	
+
 	// 쿼리문 실행을 위한 객체(Mapper 관리)
 	@Bean
 	public MapperFactoryBean<BoardMapper> getBoardMapper(SqlSessionFactory factory) throws Exception{
@@ -96,32 +98,39 @@ public class ServletAppContext implements WebMvcConfigurer{
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<TopMenuMapper> getTopMenuMapper(SqlSessionFactory factory) throws Exception{
 		MapperFactoryBean<TopMenuMapper> factoryBean = new MapperFactoryBean<TopMenuMapper>(TopMenuMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
+	@Bean
+	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) throws Exception{
+		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+
 	
 	//인터셉터 객체 등록
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
 		WebMvcConfigurer.super.addInterceptors(registry);
-		
+
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService);
-		
+
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");  //모든 요청요소에 이 인터셈터를 통과시키게 함.
 	}
-	
+
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer PropertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
-	
+
 	// properties 에러메세지 Bean으로 등록
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
@@ -129,6 +138,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 		res.setBasenames("/WEB-INF/properties/error_message");
 		return res;
 	}
+
+
 }
 
 
