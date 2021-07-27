@@ -2,6 +2,7 @@ package kr.co.softcampus.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,12 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.softcampus.beans.UserBean;
+import kr.co.softcampus.service.UserService;
 import kr.co.softcampus.validator.UserValidator;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping("/login")
 	public String login() {
 		return "user/login";
@@ -33,6 +38,7 @@ public class UserController {
 		if(result.hasErrors()) {
 			return "user/join";
 		}
+		userService.addUserInfo(joinUserBean);
 		return "user/join_success";
 	}
 	
