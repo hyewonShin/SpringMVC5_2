@@ -142,6 +142,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 
 }
 
+//프로젝트의 설정과 관련된 빈은 ServletAppContext에 저자한다.
 
 
 

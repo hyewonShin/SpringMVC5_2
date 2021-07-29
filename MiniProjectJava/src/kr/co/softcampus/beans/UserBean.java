@@ -26,9 +26,12 @@ public class UserBean {
 	//중복검사를 했는지 확인하는 객체(join.jsp에서 hidden으로 사용)
 	private boolean userIdExist;
 	
-	//객체가 처음 생성될 떄는 중복검사가 안됐을때니 false를 기본값으로 해놓는다.
+	//로그인 여부값을 담고있는 객체
+	private boolean userLogin;
+	
 	public UserBean() {
 		this.userIdExist = false;
+		this.userLogin = false;
 	}
 	
 	public int getUser_idx() {
@@ -69,6 +72,16 @@ public class UserBean {
 
 	public void setUserIdExist(boolean userIdExist) {
 		this.userIdExist = userIdExist;
+	}
+
+
+	public boolean isUserLogin() {
+		return userLogin;
+	}
+
+
+	public void setUserLogin(boolean userLogin) {
+		this.userLogin = userLogin;
 	}
 	
 	

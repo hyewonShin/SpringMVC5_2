@@ -19,6 +19,10 @@ public class UserDao {
 	public void addUserInfo(UserBean joinUserBean) {
 		userMapper.addUserInfo(joinUserBean);
 	}
+	
+	public UserBean getLoginUserInfo(UserBean tempLoginUserBean) {
+		return userMapper.getLoginUserInfo(tempLoginUserBean);
+	}
 }
 
 //Dao에서는 Mapper의 객체를 가져와 사용해준다.
