@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import kr.co.softcampus.beans.BoardInfoBean;
+import kr.co.softcampus.beans.UserBean;
 import kr.co.softcampus.service.TopMenuService;
 
 public class TopMenuInterceptor implements HandlerInterceptor{
@@ -21,10 +22,12 @@ public class TopMenuInterceptor implements HandlerInterceptor{
 	
 	//TopMenuService 생성자
 	private TopMenuService topMenuService;
+	private UserBean loginUserBean;
 	
 	//TopMenuInterceptor 생성자에 TopMenuService 객체(생성자) 넣음. 
-	public TopMenuInterceptor(TopMenuService topMenuService) {
+	public TopMenuInterceptor(TopMenuService topMenuService, UserBean loginUserBean) {
 		this.topMenuService = topMenuService;
+		this.loginUserBean = loginUserBean;
 	}
 	
 	@Override
@@ -33,6 +36,7 @@ public class TopMenuInterceptor implements HandlerInterceptor{
 
 		List<BoardInfoBean> topMenuList = topMenuService.getTopMenuList();
 		request.setAttribute("topMenuList",topMenuList);
+		request.setAttribute("loginUserBean",loginUserBean);
 		//list를 request영역에 topMunuList라는 이름으로 저장함.
 		//controller로 연결됌 
 

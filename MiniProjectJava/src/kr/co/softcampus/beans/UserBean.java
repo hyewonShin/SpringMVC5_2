@@ -27,6 +27,8 @@ public class UserBean {
 	private boolean userIdExist;
 	
 	//로그인 여부값을 담고있는 객체
+	// true = 로그인 한 것 
+	// false = 로그인 안한것
 	private boolean userLogin;
 	
 	public UserBean() {

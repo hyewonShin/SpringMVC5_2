@@ -11,7 +11,7 @@ import kr.co.softcampus.beans.UserBean;
 public class RootAppContext {
 
 	@Bean("loginUserBean")
-	@SessionScope
+	@SessionScope  //세션영역에 UserBean 저장
 	public UserBean loginUserBean() {
 		return new UserBean();
 	}
@@ -19,5 +19,5 @@ public class RootAppContext {
 	
 }
 
-//다양한 목적으로 사용하기 위해 이 클래스에서 정의해줌.
+// 다양한 목적으로 사용하기 위해 이 클래스에서 정의해줌.
 // 데이터를 저장하거나 관리하는 bean들은 RootAppContext에 저장함.
