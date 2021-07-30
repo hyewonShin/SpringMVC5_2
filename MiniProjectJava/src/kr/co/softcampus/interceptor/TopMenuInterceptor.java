@@ -20,11 +20,11 @@ public class TopMenuInterceptor implements HandlerInterceptor{
 	   ->인터셉터를 등록한 곳에서 빈을 주입받은 다음에 생성자로 넘겨서 작업해줘된다.
 	 */
 	
-	//TopMenuService 생성자
+	//TopMenuService,UserBean 생성자
 	private TopMenuService topMenuService;
 	private UserBean loginUserBean;
 	
-	//TopMenuInterceptor 생성자에 TopMenuService 객체(생성자) 넣음. 
+	//TopMenuInterceptor 생성자에 TopMenuService, UserBean 객체(생성자) 넣음. 
 	public TopMenuInterceptor(TopMenuService topMenuService, UserBean loginUserBean) {
 		this.topMenuService = topMenuService;
 		this.loginUserBean = loginUserBean;

@@ -20,6 +20,7 @@ public class UserService {
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
 	
+	// 아이디 중복확인 메서드
 	public boolean checkUserIdExist(String user_id) {
 		
 		String user_name = userDao.checkUserIdExist(user_id);
@@ -31,6 +32,7 @@ public class UserService {
 		}
 	} 
 	
+	//회원가입시 정보를 저장하는 메서드
 	public void addUserInfo(UserBean joinUserBean) {
 		userDao.addUserInfo(joinUserBean);
 	}

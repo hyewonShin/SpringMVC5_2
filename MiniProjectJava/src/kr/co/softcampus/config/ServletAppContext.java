@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import kr.co.softcampus.beans.UserBean;
+import kr.co.softcampus.interceptor.CheckLoginInteceptor;
 import kr.co.softcampus.interceptor.TopMenuInterceptor;
 import kr.co.softcampus.mapper.BoardMapper;
 import kr.co.softcampus.mapper.TopMenuMapper;
@@ -128,9 +129,13 @@ public class ServletAppContext implements WebMvcConfigurer{
 		WebMvcConfigurer.super.addInterceptors(registry);
 
 		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(topMenuService, loginUserBean);
-
 		InterceptorRegistration reg1 = registry.addInterceptor(topMenuInterceptor);
 		reg1.addPathPatterns("/**");  //모든 요청요소에 이 인터셈터를 통과시키게 함.
+		
+		CheckLoginInteceptor checkLoginInteceptor = new CheckLoginInteceptor(loginUserBean);
+		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInteceptor);
+		reg2.addPathPatterns("/user/modify","/user/logout", "/board/*");  
+		reg2.excludePathPatterns("/board/main"); //board의 main은 인터셉터 제외
 	}
 
 	@Bean

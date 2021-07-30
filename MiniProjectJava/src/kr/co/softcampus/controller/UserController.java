@@ -52,7 +52,7 @@ public class UserController {
 		//tempLoginUserBean으로 login.jsp의 아이디와 비밀번호 전달한다.
 		//로그인 성공시 userService의 getLoginUserInfo메서드 동작한다.
 		
-		if(loginUserBean.isUserLogin() == true ) {
+		if(loginUserBean.isUserLogin() == true ) {  //UserService에서 로그인성공시 true 값 넣어줌
 			return "user/login_success";
 		} else {
 			return "user/login_fail";
@@ -78,6 +78,7 @@ public class UserController {
 		return "user/modify";
 	}
 	
+	//로그아웃 처리 
 	@GetMapping("/logout")
 	public String logout() {
 		
@@ -85,6 +86,12 @@ public class UserController {
 		
 		return "user/logout";
 	}
+	
+	@GetMapping("/not_login")
+	public String not_login() {
+		return "user/not_login";
+	}
+	
 	
 	//유효성검사 클래스 적용
 	@InitBinder
