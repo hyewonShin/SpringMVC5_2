@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var='root' value="${pageContext.request.contextPath }/"/>
 <!DOCTYPE html>
 <html>
@@ -25,30 +26,33 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<form action="${root }user/modify" method="get">
-					<div class="form-group">
-						<label for="user_name">이름</label>
-						<input type="text" id="user_name" name="user_name" class="form-control" value="홍길동" disabled="disabled"/>
-					</div>
-					<div class="form-group">
-						<label for="user_id">아이디</label>
-						<input type="text" id="user_id" name="user_id" class="form-control" value="abc" disabled="disabled"/>
-					</div>
-					<div class="form-group">
-						<label for="user_pw">비밀번호</label>
-						<input type="password" id="user_pw" name="user_pw" class="form-control" value="1234"/>
-					</div>
-					<div class="form-group">
-						<label for="user_pw2">비밀번호 확인</label>
-						<input type="password" id="user_pw2" name="user_pw2" class="form-control" value="1234"/>
-					</div>
-					<div class="form-group">
-						<div class="text-right">
-							<button type="submit" class="btn btn-primary">정보수정</button>
+					<form:form action="${root }user/modify_pro" method="post" modelAttribute="modifyUserBean">
+						<div class="form-group">
+							<form:label path="user_name">이름</form:label>
+							<form:input path="user_name" class='form-control' readonly="true"/>		
+							<!-- disabled="true" : 값을 수정하지 못하게 하는 것 / submit시 서버로 값이 넘어가지 않는다. -->
+							<!-- 그래서 disabled 대신에 readonly 태그를 사용해준다(수정은 불가능하지만 서버로 넘어가서 출력됌) -->	
 						</div>
-					</div>
-					
-					</form>
+						<div class="form-group">
+							<form:label path="user_id">아이디</form:label>
+							<form:input path="user_id" class='form-control' readonly="true"/>
+						</div>
+						<div class="form-group">
+							<form:label path="user_pw">비밀번호</form:label>
+							<form:password path="user_pw" class='form-control'/>
+							<form:errors path="user_pw" style='color:red'/>
+						</div>
+						<div class="form-group">
+							<form:label path="user_pw2">비밀번호 확인</form:label>
+							<form:password path="user_pw2" class='form-control'/>
+							<form:errors path="user_pw2" style='color:red'/>
+						</div>
+						<div class="form-group">
+							<div class="text-right">
+								<form:button class='btn btn-primary'>정보수정</form:button>
+							</div>
+						</div>
+					</form:form>
 				</div>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	//로그인 성공시 데이터를 담기위해 주입받아준다.
+	//로그인 성공시 데이터를 담기위해 주입받아준다(로그인한 사용자의 정보가 담겨져있다).
 	@Resource(name = "loginUserBean")
 	private UserBean loginUserBean;
 	
@@ -48,4 +48,22 @@ public class UserService {
 			loginUserBean.setUserLogin(true); //로그인 성공 여부
 		}
 	}
+	
+	//정보수정 데이터 가져오는 메서드
+	public void getModifyUserInfo(UserBean modifyUserBean) {
+		UserBean tempModifyUserBean = userDao.getModifyUserInfo(loginUserBean.getUser_idx());
+	
+		modifyUserBean.setUser_id(tempModifyUserBean.getUser_id());
+		modifyUserBean.setUser_name(tempModifyUserBean.getUser_name());
+		modifyUserBean.setUser_idx(tempModifyUserBean.getUser_idx());
+	}
+
+	public void modifyUserInfo(UserBean modifyUserBean) {
+	
+		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
+		
+		userDao.modifyUserInfo(modifyUserBean);
+	}
+
 }
+
