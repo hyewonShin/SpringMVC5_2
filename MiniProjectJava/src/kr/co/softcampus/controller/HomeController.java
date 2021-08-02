@@ -1,6 +1,7 @@
 package kr.co.softcampus.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,12 @@ public class HomeController {
 	//private UserBean loginUserBean;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String home(HttpServletRequest request) {
 		//System.out.println(loginUserBean);
+		
+		//System.out.println(request.getServletContext().getRealPath("/"));
+		//이클립스는 실제경로랑 실행되는 위치가 다르다.
+		
 		return "redirect:/main";
 	}
 }
