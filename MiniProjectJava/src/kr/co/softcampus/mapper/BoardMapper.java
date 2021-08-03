@@ -1,6 +1,9 @@
 package kr.co.softcampus.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 
 import kr.co.softcampus.beans.ContentBean;
 
@@ -11,4 +14,19 @@ public interface BoardMapper {
 			"values (content_seq.nextval, #{content_subject},  #{content_text}, #{content_file, jdbcType=VARCHAR}, " +
 			"#{content_writer_idx}, #{content_board_idx}, sysdate)")
 			void addContentInfo(ContentBean writeContentBean);
+	
+	//게시판 번호가 일치하면 게시판 이름을 출력하는 쿼리
+	@Select("select board_info_name " + 
+			"from board_info_table " + 
+			"where board_info_idx = #{board_info_idx}")
+	String getBoardInfoName(int board_info_idx);
+	
+	//contentBean과 UserBean을 조인하여 글목록에 다양한 정보들을 나오게 하는 쿼리
+	@Select("select a1.content_idx, a1.content_subject, a2.user_name as content_writer_name, " + 
+			"        to_char(a1.content_Date, 'YYYY-MM-DD') as content_date " + 
+			"from content_Table a1, user_table a2 " + 
+			"where a1.content_Writer_idx = a2.user_idx " + 
+			"    and a1.content_board_idx = #{board_info_idx}" + 
+			"order by a1.content_idx desc")
+		List<ContentBean> getContentList(int board_info_idx);
 }

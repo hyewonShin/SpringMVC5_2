@@ -1,5 +1,7 @@
 package kr.co.softcampus.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,19 @@ import kr.co.softcampus.service.BoardService;
 public class BoardController {
 
 	@Autowired
-	private BoardService BoardService;
+	private BoardService boardService;
 	
 	@GetMapping("/main")
 	public String main(@RequestParam("board_info_idx") int board_info_idx,
 						Model model) {
 		
 		model.addAttribute("board_info_idx", board_info_idx);
+		
+		String boardInfoName = boardService.getBoardInfoName(board_info_idx);
+		model.addAttribute("boardInfoName", boardInfoName);
+		
+		List<ContentBean> contentList = boardService.getContentBeans(board_info_idx);
+		model.addAttribute("contentList", contentList);
 		
 		return "board/main";
 	}
@@ -51,7 +59,7 @@ public class BoardController {
 			return "board/write";
 		}
 		
-		BoardService.addContentInfo(writeContentBean);
+		boardService.addContentInfo(writeContentBean);
 		
 		return "board/write_success";
 	}
