@@ -67,4 +67,8 @@ public class BoardService {
 	public List<ContentBean> getContentBeans(int board_info_idx){
 		return boardDao.getContentList(board_info_idx);
 	}
+	
+	public 	ContentBean getContentInfo(int content_idx) {
+		return boardDao.getContentInfo(content_idx);
+	}
 }

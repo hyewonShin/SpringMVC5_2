@@ -26,6 +26,9 @@ public class BoardDao {
 		return boardMapper.getContentList(board_info_idx);
 	}
 	
+	public ContentBean getContentInfo(int content_idx) {
+		return boardMapper.getContentInfo(content_idx);
+	}
 }
 
 
