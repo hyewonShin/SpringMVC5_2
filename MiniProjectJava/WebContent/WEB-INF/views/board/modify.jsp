@@ -30,8 +30,8 @@
 				<div class="card shadow">
 					<div class="card-body">
 						<form:form action="${root }board/modify_pro" method="post" modelAttribute="modifyContentBean" enctype="multipart/form-data">
-							<form:hidden path="content_idx"/>
-							<form:hidden path="content_board_idx"/>
+							<form:hidden path="content_idx"/>  <!-- 글번호 -->
+							<form:hidden path="content_board_idx"/> <!-- 게시판 번호 -->
 							<div class="form-group">
 								<form:label path="content_writer_name">작성자</form:label>
 								<form:input path="content_writer_name" class="form-control" readonly="true"/>
@@ -54,6 +54,8 @@
 								<label for="board_file">첨부 이미지</label>
 								<c:if test="${modifyContentBean.content_file != null }">
 								<img src="${root }upload/${modifyContentBean.content_file }" width="100%"/>
+								<form:hidden path="content_file"/> 
+								<!-- 이미지파일의 이름을 숨겨서 modifyContentBean에 저장한다/수정완료 버튼 클릭시 이미지 보존 됌 /-->
 								</c:if>
 								<form:input path="upload_file" type="file" class="form-control" accept="image/*"/>
 							</div>

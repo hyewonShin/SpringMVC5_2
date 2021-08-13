@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import kr.co.softcampus.beans.ContentBean;
 
@@ -42,5 +44,11 @@ public interface BoardMapper {
 			"where a1.content_writer_idx = a2.user_idx " + 
 			"      and content_idx = #{content_idx} ")
 	ContentBean getContentInfo(int content_idx);
+	
+	@Update("update content_table " +
+			"set content_subject = #{content_subject}, content_text = #{content_text}, " +
+			"content_file = #{content_file, jdbcType=VARCHAR} " +    //null 허용하는 컬럼은 반드시 타입을 적어준다. 
+			"where content_idx = #{content_idx}")
+	void modifyContentInfo(ContentBean modifyContentBean);
 	
 }
